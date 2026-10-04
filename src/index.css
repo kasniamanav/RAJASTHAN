@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sand: #F4E3C1;
+  --color-sand-light: #FAF3E3;
+  --color-terracotta: #C65D3B;
+  --color-terracotta-dark: #A34526;
+  --color-maroon: #6B1E2E;
+  --color-maroon-dark: #4A121E;
+  --color-marigold: #F2A900;
+  --color-marigold-light: #FFC947;
+  --color-teal: #0F6B6B;
+  --color-teal-light: #1A9494;
+  --color-indigo: #12132B;
+  --color-indigo-dark: #0A0B1A;
+  
+  --font-playfair: "Playfair Display", serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-tiro: "Tiro Devanagari Hindi", serif;
+}
+
+@layer base {
+  :root {
+    --bg-color: #F4E3C1;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --text-color: #6B1E2E;
+    --text-muted: #8C4A57;
+    --accent-color: #C65D3B;
+    --border-color: rgba(198, 93, 59, 0.2);
+  }
+
+  .dark {
+    --bg-color: #12132B;
+    --card-bg: rgba(26, 28, 58, 0.7);
+    --text-color: #F4E3C1;
+    --text-muted: #D1BE9B;
+    --accent-color: #F2A900;
+    --border-color: rgba(242, 169, 0, 0.2);
+  }
+
+  /* Hide default cursor on desktop when custom cursor is active */
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-poppins);
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair);
+  }
+
+  .devanagari {
+    font-family: var(--font-tiro);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+  }
+  
+  .glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Rajasthani Jharokha arch shape */
+  .jharokha-arch {
+    clip-path: polygon(
+      0% 100%,
+      0% 25%,
+      15% 18%,
+      30% 10%,
+      45% 3%,
+      50% 0%,
+      55% 3%,
+      70% 10%,
+      85% 18%,
+      100% 25%,
+      100% 100%
+    );
+  }
+
+  .jharokha-top {
+    border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  }
+
+  /* Block-print decorative border divider */
+  .rajasthani-border {
+    background-image: radial-gradient(circle, var(--color-marigold) 2px, transparent 2px), radial-gradient(circle, var(--color-terracotta) 2px, transparent 2px);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+  }
+}
+
+/* Twinkling stars for dark mode */
+.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 120px 80px, #F2A900, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 240px 180px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 380px 120px, #F4E3C1, rgba(0,0,0,0)),
+    radial-gradient(1.2px 1.2px at 520px 240px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 700px 90px, #FFC947, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 850px 320px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 980px 150px, #F4E3C1, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 1120px 220px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 1200px 600px;
+  opacity: 0.65;
+  z-index: 1;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.85; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-marigold);
+  border-radius: 4px;
+}
